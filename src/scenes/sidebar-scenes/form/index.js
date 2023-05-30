@@ -13,7 +13,7 @@ const Form = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE USER" subtitle="Create a New User Profile" />
+      <Header title="PROFILE" subtitle="Update your profile" />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -67,7 +67,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Email"
+                label="Major(s)"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.email}
@@ -80,7 +80,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Contact Number"
+                label="Telegram Username"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.contact}
@@ -93,16 +93,107 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 1"
+                label="Module 1"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.address1}
                 name="address1"
                 error={!!touched.address1 && !!errors.address1}
                 helperText={touched.address1 && errors.address1}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 1" }}
               />
               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Module 2"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address1}
+                name="address1"
+                error={!!touched.address1 && !!errors.address1}
+                helperText={touched.address1 && errors.address1}
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Module 3"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address1}
+                name="address1"
+                error={!!touched.address1 && !!errors.address1}
+                helperText={touched.address1 && errors.address1}
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Module 4"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address1}
+                name="address1"
+                error={!!touched.address1 && !!errors.address1}
+                helperText={touched.address1 && errors.address1}
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Module 5"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address1}
+                name="address1"
+                error={!!touched.address1 && !!errors.address1}
+                helperText={touched.address1 && errors.address1}
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Module 6"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address1}
+                name="address1"
+                error={!!touched.address1 && !!errors.address1}
+                helperText={touched.address1 && errors.address1}
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Module 7"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address1}
+                name="address1"
+                error={!!touched.address1 && !!errors.address1}
+                helperText={touched.address1 && errors.address1}
+                sx={{ gridColumn: "span 1" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Module 8"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address1}
+                name="address1"
+                error={!!touched.address1 && !!errors.address1}
+                helperText={touched.address1 && errors.address1}
+                sx={{ gridColumn: "span 1" }}
+              />
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type="text"
@@ -114,11 +205,11 @@ const Form = () => {
                 error={!!touched.address2 && !!errors.address2}
                 helperText={touched.address2 && errors.address2}
                 sx={{ gridColumn: "span 4" }}
-              />
+              /> */}
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                Update Profile
               </Button>
             </Box>
           </form>

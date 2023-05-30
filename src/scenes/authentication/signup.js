@@ -121,7 +121,7 @@ export default function SignUp() {
 
     return (
         <div>   
-            <p>
+            {/* <p>
                 <TextField
                 id="standard-username"
                 label="Username"
@@ -135,7 +135,7 @@ export default function SignUp() {
                 fullWidth
                 size="small"
                 />
-            </p>
+            </p> */}
 
             <p>
                 <TextField

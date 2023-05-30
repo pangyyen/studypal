@@ -11,23 +11,22 @@ const Contacts = () => {
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
     {
       field: "name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
+    // {
+    //   field: "age",
+    //   headerName: "Age",
+    //   type: "number",
+    //   headerAlign: "left",
+    //   align: "left",
+    // },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "telegramUsername",
+      headerName: "Telegram Usernsme",
       flex: 1,
     },
     {
@@ -36,18 +35,8 @@ const Contacts = () => {
       flex: 1,
     },
     {
-      field: "address",
-      headerName: "Address",
-      flex: 1,
-    },
-    {
-      field: "city",
-      headerName: "City",
-      flex: 1,
-    },
-    {
-      field: "zipCode",
-      headerName: "Zip Code",
+      field: "major",
+      headerName: "Major",
       flex: 1,
     },
   ];

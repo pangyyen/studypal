@@ -36,6 +36,7 @@ function App() {
           <Sidebar />
           <main className='content'>
             <Topbar />
+            {console.log(user)}
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
@@ -46,7 +47,7 @@ function App() {
           </main>
         </div>
         ) : (
-          <>
+          <>     
           <Topbar />
           <AuthPage />
           </>

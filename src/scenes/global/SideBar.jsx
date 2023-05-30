@@ -23,6 +23,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import SendIcon from '@mui/icons-material/Send';
 import { BarItem } from "@nivo/bar";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -95,7 +97,7 @@ function Sidebar() {
                     ml="15px"
                 >
                     <Typography variant="h3" color={colors.grey[100]}>
-                    ADMINS
+                    Student
                     </Typography>
                     <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                         <MenuOutlinedIcon />
@@ -134,46 +136,51 @@ function Sidebar() {
           )}
 
           {/* MENU ITEM  */}
+          
+
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Menu
+            </Typography>
+
             <Item
-              title="Dashboard"
+              title="Studying Jios"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Data
-            </Typography>
-            <Item
+            
+            {/* <Item
               title="Manage Team"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
-              title="Contacts Information"
+              title="Social"
               to="/contacts"
-              icon={<ContactsOutlinedIcon />}
+              icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Typography
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Pages
-            </Typography>
+            </Typography> */}
+
             <Item
-              title="Profile Form"
+              title="Account"
               to="/form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
@@ -187,14 +194,54 @@ function Sidebar() {
               setSelected={setSelected}
             />
             <Item
-              title="FAQ Page"
+              title="Message"
               to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
+              icon={<SendIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
             <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Modules
+            </Typography>
+
+            <Item
+              title="CS1010E"
+              to="/bar"
+              icon={<FiberManualRecordIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="LSM2106"
+              to="/bar"
+              icon={<FiberManualRecordIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="UTW1001J"
+              to="/bar"
+              icon={<FiberManualRecordIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="MA2001"
+              to="/bar"
+              icon={<FiberManualRecordIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            {/* <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
@@ -228,7 +275,7 @@ function Sidebar() {
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
 
           </Menu>
