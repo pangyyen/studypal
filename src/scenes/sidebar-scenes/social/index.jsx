@@ -5,7 +5,7 @@ import { mockDataContacts } from "../../../data/mockData";
 import Header from "../../../components/Header";
 import { useTheme } from "@mui/material";
 
-const Contacts = () => {
+const Social = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -17,13 +17,6 @@ const Contacts = () => {
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    // {
-    //   field: "age",
-    //   headerName: "Age",
-    //   type: "number",
-    //   headerAlign: "left",
-    //   align: "left",
-    // },
     {
       field: "telegramUsername",
       headerName: "Telegram Usernsme",
@@ -44,7 +37,7 @@ const Contacts = () => {
   return (
     <Box m="20px">
       <Header
-        title="CONTACTS"
+        title="SOCIAL"
         subtitle="List of Contacts for Future Reference"
       />
       <Box
@@ -89,4 +82,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Social;

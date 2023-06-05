@@ -1,31 +1,24 @@
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import { tokens } from "../theme";
 import "react-pro-sidebar/dist/css/styles.css";
-import { tokens } from "../../theme";
 
 // User authentication import
-import AuthPage from "../authentication/auth";
-import { auth } from "../../config/firebase-config";
+import AuthPage from "../scenes/authentication/auth";
+import { auth } from "../config/firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 
+// material UI
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import SendIcon from '@mui/icons-material/Send';
-import { BarItem } from "@nivo/bar";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
@@ -136,8 +129,6 @@ function Sidebar() {
           )}
 
           {/* MENU ITEM  */}
-          
-
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
           <Typography
               variant="h6"
@@ -155,29 +146,13 @@ function Sidebar() {
               setSelected={setSelected}
             />
 
-            
-            {/* <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
             <Item
               title="Social"
-              to="/contacts"
+              to="/social"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-
-            {/* <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography> */}
 
             <Item
               title="Account"
@@ -216,66 +191,6 @@ function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-
-            <Item
-              title="LSM2106"
-              to="/bar"
-              icon={<FiberManualRecordIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Item
-              title="UTW1001J"
-              to="/bar"
-              icon={<FiberManualRecordIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Item
-              title="MA2001"
-              to="/bar"
-              icon={<FiberManualRecordIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            {/* <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Charts
-            </Typography>
-            <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
           </Box>
 
           </Menu>

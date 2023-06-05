@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Header from "../../../components/Header";
 
-const  Dashboard = () => {
+const  StudyingJios = () => {
     return (
         <Box m="20px">
             {/* HEADER */}
@@ -12,4 +12,4 @@ const  Dashboard = () => {
     )
 }
 
-export default Dashboard;
+export default StudyingJios;

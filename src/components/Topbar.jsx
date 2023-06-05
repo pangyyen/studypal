@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { ColorModeContext, tokens } from "../../theme";
+import { ColorModeContext, tokens } from "../theme";
 
 // User authentication import
-import AuthPage from "../authentication/auth";
-import { auth } from "../../config/firebase-config";
+import AuthPage from "../scenes/authentication/auth";
+import { auth } from "../config/firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 

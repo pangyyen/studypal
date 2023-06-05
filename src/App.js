@@ -7,13 +7,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./config/firebase-config";
 
 // import scenes
-import Topbar from "./scenes/global/Topbar";
-import Sidebar from "./scenes/global/SideBar";
+import Topbar from "./components/Topbar";
+import Sidebar from "./components/SideBar";
 import Team from "./scenes/sidebar-scenes/team";
-import Contacts from "./scenes/sidebar-scenes/contacts";
+import Social from "./scenes/sidebar-scenes/social";
 import Calendar from "./scenes/sidebar-scenes/calendar";
-import Dashboard from "./scenes/sidebar-scenes/dashboard";
-import Form from "./scenes/sidebar-scenes/form";
+import StudyingJios from "./scenes/sidebar-scenes/dashboard";
+import Account from "./scenes/sidebar-scenes/form";
 
 // Material UI imports
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -36,12 +36,11 @@ function App() {
           <Sidebar />
           <main className='content'>
             <Topbar />
-            {console.log(user)}
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<StudyingJios />} />
               <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/form" element={<Form />} /> 
+              <Route path="/social" element={<Social />} />
+              <Route path="/form" element={<Account />} /> 
               <Route path="/calendar" element={<Calendar />} />
             </Routes>
           </main>
