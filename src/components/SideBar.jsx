@@ -5,10 +5,7 @@ import { tokens } from "../theme";
 import "react-pro-sidebar/dist/css/styles.css";
 
 // User authentication import
-import AuthPage from "../scenes/authentication/auth";
-import { auth } from "../config/firebase-config";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { signOut } from "firebase/auth";
+import { useAuth } from "../scenes/authentication/auth-context";
 
 // material UI
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -45,8 +42,7 @@ function Sidebar() {
     const [selected, setSelected] = useState("Dashboard");
 
     // user authentication
-    const [user] = useAuthState(auth);
-    console.log(user);
+    const { currentUser } = useAuth();
 
     return (
         <Box
@@ -119,7 +115,7 @@ function Sidebar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {user.email}
+                  {currentUser?.email}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   Computer Science Year 1
@@ -168,9 +164,10 @@ function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
+
             <Item
               title="Message"
-              to="/faq"
+              to="/message"
               icon={<SendIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -186,7 +183,7 @@ function Sidebar() {
 
             <Item
               title="CS1010E"
-              to="/bar"
+              to="/"
               icon={<FiberManualRecordIcon />}
               selected={selected}
               setSelected={setSelected}

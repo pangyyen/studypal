@@ -1,15 +1,26 @@
+import React from "react";
+import { Routes, Route, redirect, useLocation, Navigate } from 'react-router-dom';
+import { useAuth } from "../authentication/auth-context"
+
+
+// import scenes
+import Header from "../../components/Header";
+import Sidebar from "../../components/SideBar";
+import { tokens } from "../../theme";
+import { mockDataTeam } from "../../data/mockData";
+
+// Material-UI imports
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../../theme";
-import { mockDataTeam } from "../../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import Header from "../../../components/Header";
+
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { currentUser } = useAuth()
   const columns = [
     { field: "id", headerName: "ID" },
     {
