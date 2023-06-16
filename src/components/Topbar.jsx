@@ -1,21 +1,19 @@
 import { useContext } from "react";
-import { ColorModeContext, tokens } from "../../theme";
+import { ColorModeContext, tokens } from "../theme";
 
 // User authentication import
-import AuthPage from "../authentication/auth";
-import { auth } from "../../config/firebase-config";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../config/firebase-config";
 import { signOut } from "firebase/auth";
+import { useAuth } from "../scenes/authentication/auth-context";
 
 // Material UI imports
-import { Box, IconButton, useTheme , InputBase} from "@mui/material"
+import { Box, IconButton, useTheme , InputBase, Button} from "@mui/material"
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";  
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";  
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";  
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";  
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SearchIcon from "@mui/icons-material/Search";  
 import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const  Topbar = () => { 
     const theme = useTheme();  // theme object, came from ThemeProvider in App.js
@@ -23,7 +21,7 @@ const  Topbar = () => {
     const colorMode = useContext(ColorModeContext) // object containing toggle function
 
     // User Authentication
-    const [user] = useAuthState(auth);
+    const { currentUser, logout } = useAuth()
 
     const signUserOut = async () => {
       await signOut(auth);
@@ -47,6 +45,31 @@ const  Topbar = () => {
 
       {/* ICONS */}
       <Box display="flex">
+        {/* <IconButton>
+          <NotificationsOutlinedIcon /> 
+        </IconButton>
+        <IconButton>
+          <SettingsOutlinedIcon />
+        </IconButton> */}
+
+        {!currentUser && <Button 
+          variant="contained" color="secondary" endIcon={<PersonAddIcon />}
+            href='/register'>
+            Register
+          </Button>}
+
+        {!currentUser && <Button 
+          variant="contained" color="secondary" endIcon={<LoginIcon />}
+          href='/login'>
+            Login
+          </Button>}
+
+      
+        {currentUser && <Button 
+        variant="contained" color="secondary" endIcon={<LogoutIcon />} onClick={logout}>
+          Log Out
+        </Button> }
+
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
@@ -54,18 +77,8 @@ const  Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        {/* <IconButton>
-          <NotificationsOutlinedIcon /> 
-        </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton> */}
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <LogoutIcon onClick={signUserOut} />
-        </IconButton>
+
+        
       </Box>
     </Box>
     );

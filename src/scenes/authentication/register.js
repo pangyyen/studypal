@@ -6,9 +6,9 @@ import { auth } from "../../config/firebase-config";
 import { useAuth } from "./auth-context";
 import useMounted from "../../hooks/useMounted";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
 import Header from "../../components/Header";
 
+import { useEffect } from "react";
 import { useState } from "react";
 import {
   TextField,
@@ -51,7 +51,7 @@ export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const location = useLocation();
 
-  const { currentUser, login } = useAuth()
+  const { currentUser, register } = useAuth()
   const mounted = useMounted();
   const navigate = useNavigate();
 
@@ -60,28 +60,12 @@ export default function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  // const login = async (values) => {
-  //   try {
-  //     const user = await signInWithEmailAndPassword(auth, values.email, values.password);
-  //   } catch (error) {
-  //     alert("error :" + error.message);
-  //   }
-  // };
-
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   setUser(currentUser);
-  // });
-
-  // const logout = async () => {
-  //   await signOut(auth);
-  // };
-
-
   
   function handleRedirectToOrBack() {
     navigate(location.state?.from ?? '/', {replace : true})
   }
+
+  
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
@@ -92,13 +76,15 @@ export default function Login() {
       return;
     }
 
+    console.log(values)
+
     // login logic here
     setIsSubmitting(true)
-    login(values.email, values.password)
+    register(values.email, values.password)
     .then(res => handleRedirectToOrBack())
     .catch(error => {
       console.log(error.message)
-      alert({error})
+      alert("unable to register")
     })
     .finally(() => {
       mounted.current && setIsSubmitting(false)
@@ -110,9 +96,16 @@ export default function Login() {
   //   console.log(values);
   // };
 
+  useEffect(() => {
+    mounted.current = true
+    return () => {
+      mounted.current = false
+    }
+  }, [])
+
   return (
       <Box m="20px">
-        <Header title ="LOGIN" subtitle="Start seeking for studypal now!" />
+        <Header title ="REGISTER" subtitle="register an account and start seeking for studypal!" />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -154,7 +147,7 @@ export default function Login() {
               type="text"
               label="password"
               onBlur={handleBlur}
-              onChange={handleChange}
+              onChange={(handleChange)}
               value={values.password}
               name="password"
               error={!!touched.password && !!errors.password}
@@ -175,26 +168,11 @@ export default function Login() {
                 ),
               }}
             />
-
-            <div align="left">
-            <Field
-              as={Checkbox}
-              name="rememberMe"
-              type="checkbox"
-              inputProps={{ 'aria-label': 'controlled' }}
-            />
-            Remember me
-          </div>
-
-          <div style={{ marginTop: "7px", fontSize: "10px" }} margin="left">
-            <a>Forgot Password</a>
-          </div> 
-
           </Box>
 
           <Box display="flex" justifyContent="end" mt="20px">
             <Button type="submit" color="secondary" variant="contained" isLoading={isSubmitting}>
-              Log in
+              Register
             </Button>
           </Box>
           </form>

@@ -2,9 +2,13 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../../components/Header";
+import Header from "../../components/Header";
+import Sidebar from "../../components/SideBar";
+import { useAuth } from "../authentication/auth-context"
 
-const Form = () => {
+
+const Account = () => {
+  const { currentUser } = useAuth()
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit = (values) => {
@@ -12,10 +16,11 @@ const Form = () => {
   };
 
   return (
-    <Box m="20px">
-      <Header title="CREATE USER" subtitle="Create a New User Profile" />
-
-      <Formik
+    <Box display="flex">
+      <Sidebar />
+    <Box m="20px" flex="1">
+      <Header title="PROFILE" subtitle="Update your profile" />
+      <Formik 
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
@@ -67,63 +72,80 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Email"
+                label="Major(s)"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={!!touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
+                value={values.major}
+                name="major"
+                error={!!touched.major && !!errors.major}
+                helperText={touched.major && errors.major}
+                sx={{ gridColumn: "span 3" }}
+              />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Year"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.year}
+                name="year"
+                error={!!touched.year && !!errors.year}
+                helperText={touched.year && errors.year}
+                sx={{ gridColumn: "span 1" }}
+              />
+              
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Telegram Username"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.telename}
+                name="telename"
+                error={!!touched.telename && !!errors.telename}
+                helperText={touched.telename && errors.telename}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Contact Number"
+                label="Module 1"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.contact}
-                name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
-                sx={{ gridColumn: "span 4" }}
+                value={values.mod1}
+                name="mod1"
+                error={!!touched.mod1 && !!errors.mod1}
+                helperText={touched.mod1 && errors.mod1}
+                sx={{ gridColumn: "span 1" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 1"
+                label="Module 2"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.address1}
-                name="address1"
-                error={!!touched.address1 && !!errors.address1}
-                helperText={touched.address1 && errors.address1}
-                sx={{ gridColumn: "span 4" }}
+                value={values.mod2}
+                name="mod2"
+                error={!!touched.mod2 && !!errors.mod2}
+                helperText={touched.mod2 && errors.mod2}
+                sx={{ gridColumn: "span 1" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Address 2"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address2}
-                name="address2"
-                error={!!touched.address2 && !!errors.address2}
-                helperText={touched.address2 && errors.address2}
-                sx={{ gridColumn: "span 4" }}
-              />
+
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
-                Create New User
+              <Button type="submit" color="secondary" variant="contained" >
+                Update Profile
               </Button>
             </Box>
           </form>
         )}
       </Formik>
+      </Box>
     </Box>
   );
 };
@@ -134,21 +156,22 @@ const phoneRegExp =
 const checkoutSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  contact: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
+  // email: yup.string().email("invalid email").required("required"),
+  // contact: yup
+  //   .string()
+  //   .matches(phoneRegExp, "Phone number is not valid")
+  //   .required("required"),
 //   address1: yup.string().required("required"),
 //   address2: yup.string().required("required"),
 });
+
 const initialValues = {
   firstName: "",
   lastName: "",
-  email: "",
-  contact: "",
-  address1: "",
-  address2: "",
+  major: "",
+  telename: "",
+  mod1: "",
+  mod2: "",
 };
 
-export default Form;
+export default Account;
