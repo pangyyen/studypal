@@ -1,5 +1,67 @@
 import { tokens } from "../theme";
 
+export const mockRequest = [
+  {
+    
+  }
+]
+
+export const mockDataModule = [
+  {
+    code: "MA2001",
+    name: "Linear Algebra",
+  },
+  {
+    code: "CS2040S",
+    name: "Data Structures and Algorithms ",
+  },
+  {
+    code: "HSI1000",
+    name: "How Science Works, Why Science Works",
+  },
+  {
+    code: "DTK1234",
+    name: "Design Thinking",
+  },
+  {
+    code: "IS1108",
+    name: "Digital Ethics and Data Privacy",
+  },
+]
+
+export const mockFilteredSessions = [
+  {
+    id: 1,
+    date: "2023-06-10",
+    place: "ERC PC COMM",
+    capacity: 4,
+    participants: [
+      { id: 1, name: "John Doe", major: "Computer Science" },
+      { id: 2, name: "Jane Smith", major: "Mathematics" },
+    ],
+  },
+  {
+    id: 2,
+    date: "2023-06-12",
+    place: "Central Library",
+    capacity: 4,
+    participants: [
+      { id: 3, name: "Alice Johnson", major: "English Literature" },
+      { id: 4, name: "Bob Wilson", major: "History" },
+    ],
+  },
+  {
+    id: 3,
+    date: "2023-06-15",
+    place: "Science Canteen",
+    capacity: 3,
+    participants: [
+      { id: 5, name: "Emily Davis", major: "Biology" },
+      { id: 6, name: "Michael Anderson", major: "Physics" },
+    ],
+  },
+];
+
 export const mockDataTeam = [
   {
     id: 1,

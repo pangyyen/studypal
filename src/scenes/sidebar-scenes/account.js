@@ -1,19 +1,52 @@
 import { Box, Button, TextField } from "@mui/material";
+import Chip from '@mui/material/Chip';
+import { useState, useEffect } from "react";
+import MenuItem from '@mui/material/MenuItem';
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import Sidebar from "../../components/SideBar";
 import { useAuth } from "../authentication/auth-context"
+import { mockDataModule } from "../../data/mockData";
+import { updateUserInfo } from "../../firestoreOps";
 
 
 const Account = () => {
   const { currentUser } = useAuth()
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [selectedModules, setSelectedModules] = useState([]);
+  const [dropdownOptions, setDropdownOptions] = useState(mockDataModule);
 
   const handleFormSubmit = (values) => {
-    console.log(values);
+    const valuesWithModules = {...values, modules: selectedModules};
+    updateUserInfo(valuesWithModules, currentUser.uid)
+    .then(res => alert("Update Successful!"))
+    .error(error => console.log(error.message))
   };
+
+  const handleModuleAdd = (module) => {
+    setSelectedModules((prevModules) => [...prevModules.filter((m) => m !== module), module]);
+    setDropdownOptions((prevOptions) =>
+      prevOptions.filter((option) => option.code !== module)
+    );
+  };
+
+  const handleModuleRemove = (module) => {
+    setSelectedModules((prevModules) =>
+      prevModules.filter((m) => m !== module)
+    );
+    setDropdownOptions((prevOptions) => [...prevOptions, { code: module }]);
+  };
+
+  useEffect(() => {
+    // Update dropdown options when selectedModules change
+    setDropdownOptions((prevOptions) =>
+      prevOptions.filter(
+        (option) => !selectedModules.includes(option.code)
+      )
+    );
+  }, [selectedModules]);
 
   return (
     <Box display="flex">
@@ -46,26 +79,26 @@ const Account = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="First Name"
+                label={"Display Name: "}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
+                value={values.displayName}
+                name="displayName"
+                error={!!touched.displayName && !!errors.displayName}
+                helperText={touched.displayName && errors.displayName}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Last Name"
+                label="Full Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
+                value={values.fullName}
+                name="fullName"
+                error={!!touched.fullName && !!errors.fullName}
+                helperText={touched.fullName && errors.fullName}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -103,38 +136,55 @@ const Account = () => {
                 label="Telegram Username"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.telename}
-                name="telename"
-                error={!!touched.telename && !!errors.telename}
-                helperText={touched.telename && errors.telename}
+                value={values.teleName}
+                name="teleName"
+                error={!!touched.teleName && !!errors.teleName}
+                helperText={touched.teleName && errors.teleName}
                 sx={{ gridColumn: "span 4" }}
               />
+
               <TextField
                 fullWidth
+                select
                 variant="filled"
                 type="text"
-                label="Module 1"
+                label="Module"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.mod1}
-                name="mod1"
-                error={!!touched.mod1 && !!errors.mod1}
-                helperText={touched.mod1 && errors.mod1}
+                value={values.mod}
+                name="mod"
+                error={!!touched.mod && !!errors.mod}
+                helperText={touched.mod && errors.mod}
                 sx={{ gridColumn: "span 1" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Module 2"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.mod2}
-                name="mod2"
-                error={!!touched.mod2 && !!errors.mod2}
-                helperText={touched.mod2 && errors.mod2}
-                sx={{ gridColumn: "span 1" }}
-              />
+              >
+                  {dropdownOptions.map((option) => (
+                    <MenuItem key={option.code} value={option.code}>
+                      {option.code}
+                    </MenuItem>
+                  ))}
+              </TextField>
+
+              <Button
+                  type="button"
+                  color="primary"
+                  variant="contained"
+                  onClick={() => handleModuleAdd(values.mod)}
+                  sx={{ gridColumn: 'span 1' }}
+                >
+                  Add
+                </Button>
+
+                <Box gridColumn="span 4">
+                  {selectedModules.map((module) => (
+                    <Chip
+                      key={module}
+                      label={module}
+                      onDelete={() => handleModuleRemove(module)}
+                      sx={{ marginRight: '10px' }}
+                    />
+                  ))}
+                </Box>
+
 
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
@@ -154,8 +204,8 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
+  // displayName: yup.string().required("required"),
+  fullName: yup.string().required("required"),
   // email: yup.string().email("invalid email").required("required"),
   // contact: yup
   //   .string()
@@ -166,12 +216,10 @@ const checkoutSchema = yup.object().shape({
 });
 
 const initialValues = {
-  firstName: "",
-  lastName: "",
+  displayName: "",
+  fullName: "",
   major: "",
-  telename: "",
-  mod1: "",
-  mod2: "",
+  teleName: "",
 };
 
 export default Account;

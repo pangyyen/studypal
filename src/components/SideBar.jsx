@@ -115,10 +115,10 @@ function Sidebar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {currentUser?.email}
+                  {currentUser?.displayName}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Computer Science Year 1
+                  {currentUser?.major + " year " + currentUser?.year}
                 </Typography>
               </Box>
             </Box>
@@ -165,13 +165,13 @@ function Sidebar() {
               setSelected={setSelected}
             />
 
-            <Item
+            {/* <Item
               title="Message"
               to="/message"
               icon={<SendIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             <Typography
               variant="h6"
