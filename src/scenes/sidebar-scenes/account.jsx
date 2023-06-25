@@ -11,13 +11,20 @@ import { useAuth } from "../authentication/auth-context"
 import { mockDataModule } from "../../data/mockData";
 import { updateUserInfo } from "../../firestoreOps";
 
-
+/**
+ * Account component for updating user profile information.
+ */
 const Account = () => {
   const { currentUser } = useAuth()
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [selectedModules, setSelectedModules] = useState([]);
   const [dropdownOptions, setDropdownOptions] = useState(mockDataModule);
 
+  /**
+   * Handles form submission.
+   * Updates user information in the database and shows an alert for successful update.
+   * @param {Object} values - Form values.
+   */
   const handleFormSubmit = (values) => {
     const valuesWithModules = {...values, modules: selectedModules};
     updateUserInfo(valuesWithModules, currentUser.uid)
@@ -25,6 +32,11 @@ const Account = () => {
     .error(error => console.log(error.message))
   };
 
+  /**
+   * Handles adding a module to the selected modules list.
+   * Removes the module from dropdown options.
+   * @param {string} module - Module code.
+   */
   const handleModuleAdd = (module) => {
     setSelectedModules((prevModules) => [...prevModules.filter((m) => m !== module), module]);
     setDropdownOptions((prevOptions) =>
@@ -32,6 +44,11 @@ const Account = () => {
     );
   };
 
+  /**
+   * Handles removing a module from the selected modules list.
+   * Adds the module back to dropdown options.
+   * @param {string} module - Module code.
+   */
   const handleModuleRemove = (module) => {
     setSelectedModules((prevModules) =>
       prevModules.filter((m) => m !== module)

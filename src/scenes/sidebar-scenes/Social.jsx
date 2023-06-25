@@ -1,17 +1,20 @@
-import { useAuth } from "../authentication/auth-context"
 
 
-// import scenes & components
-import { tokens } from "../../theme"
-import { mockDataContacts } from "../../data/mockData"
+// import local components & scenes
 import Header from "../../components/Header"
 import Sidebar from "../../components/SideBar"
+import { useAuth } from "../authentication/auth-context"
+import { tokens } from "../../theme"
+import { mockDataContacts } from "../../data/mockData"
 
 // Material-UI imports
 import { useTheme } from "@mui/material"
 import { Box } from "@mui/material"
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 
+/**
+ * Social component that displays a list of contacts for future reference.
+ */
 const Social = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)

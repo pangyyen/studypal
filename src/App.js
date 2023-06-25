@@ -25,6 +25,9 @@ import Message from "./scenes/sidebar-scenes/Message";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
+/**
+ * Root component of the application.
+ */
 function App() {
   // MUI color theme
   const [theme, colorMode] = useMode();
@@ -58,14 +61,24 @@ function App() {
   );
 } 
 
+/**
+ * Protected route component that checks authentication status before rendering the route element.
+ * If the user is authenticated, it renders the given element; otherwise, it redirects to the login page.
+ *
+ * @param {Object} props - Component props.
+ * @param {React.ReactNode} props.element - The element to be rendered if the user is authenticated.
+ * @returns {React.ReactNode} - Protected route element.
+ */
 function ProtectedRoute({ element }) {
   const { currentUser } = useAuth();
   const { pathname, state } = useLocation();
 
   if (pathname === '/login' || pathname === '/register') {
-    return currentUser ? <Navigate to={ state?.from ?? '/'} /> : element;
+    // If the user is already authenticated, redirect to the previous page or the home page.
+    return currentUser ? <Navigate to={state?.from ?? '/'} /> : element;
   }
 
+  // If the user is not authenticated, redirect to the login page with the current path as the 'from' state.
   return currentUser ? element : <Navigate to="/login" state={{ from: pathname }} />;
 }
 

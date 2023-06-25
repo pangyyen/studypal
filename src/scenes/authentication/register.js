@@ -51,7 +51,7 @@ const initialValues ={
   rememberMe: false,
 };
 
-export default function Login() {
+export default function Register() {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [showPassword, setShowPassword] = useState(false);
 

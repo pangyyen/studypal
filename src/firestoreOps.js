@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth, db } from './config/firebase-config'
 import { doc, setDoc, getDoc, addDoc, collection, deleteDoc, serverTimestamp, query, where, getDocs, updateDoc } from "firebase/firestore"
 
+// Function to update user information in Firestore
 export async function updateUserInfo(values, uid) {
     let userDoc = null
     let userRef = null
@@ -63,7 +64,8 @@ export async function updateUserInfo(values, uid) {
       description: values.description,
       participants: values.participants
     })
-    .then(alert("Jio created! Refresh to check"))
+    .then(alert("Jio created! The page will refresh to show the update"))
+    .then(window.location.reload())
     .catch(error => console.log("Error adding document: ", error.message));
   }
 
@@ -96,7 +98,8 @@ export async function updateUserInfo(values, uid) {
         }
       
         await updateDoc(sessionRef, updatedValues);
-        alert("Join Successfully! Refresh page to check")
+        alert("Join Successfully! The page will refresh to show the update");
+        window.location.reload();
       }
   }
 
@@ -135,7 +138,8 @@ export async function updateUserInfo(values, uid) {
         };
       
         await updateDoc(sessionRef, updatedValues);
-        alert("Leave Successfully! Refresh page to check")
+        alert("Leave Successfully! The page will refresh to show the update");
+        window.location.reload();
       }
   }
 
