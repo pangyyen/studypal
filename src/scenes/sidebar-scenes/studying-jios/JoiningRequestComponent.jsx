@@ -11,7 +11,7 @@ const handleRejectButton = (request) => {
     console.log(request)
 }
 
-const HandleRequestCard = ({request}) => {
+const RequestComponent = ({request}) => {
     return (
         <Paper>
             <Grid container m="5px" direction="row" justifyContent="space-between">
@@ -40,4 +40,4 @@ const HandleRequestCard = ({request}) => {
     )
 }
 
-export default HandleRequestCard;
+export default RequestComponent;

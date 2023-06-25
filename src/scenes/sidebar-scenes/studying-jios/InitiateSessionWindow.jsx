@@ -12,15 +12,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import StudySessionCard from '../SessionCard';
-import { useAuth } from '../../../authentication/auth-context';
+import StudySessionCard from './SessionCard';
+import { useAuth } from '../../authentication/auth-context';
 
 import dayjs from 'dayjs';
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimeField } from '@mui/x-date-pickers/TimeField';
 
-import { createStudyingJio } from '../../../../firestoreOps'
+import { createStudyingJio } from '../../../firestoreOps'
 
 // Functions for handling study session requests
 

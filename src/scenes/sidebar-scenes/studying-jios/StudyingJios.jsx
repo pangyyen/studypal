@@ -12,15 +12,16 @@ import React, { useState, useEffect } from 'react';
 import { Chip, Grid, IconButton, Paper, ButtonBase } from '@mui/material';
 import { Card, CardContent, Typography, Button, styled } from "@mui/material";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-// import { DatePicker, Select } from '@material-ui/core';
 
 import { db } from "../../../config/firebase-config"; // Assuming you have initialized and exported the Firebase Firestore instance as 'db'
-import { filterByDate, filterByPlace } from './filters';
-import { InitiateSession } from './requests/InitiateSession';
+import { InitiateSession } from './InitiateSessionWindow';
 import { mockFilteredSessions } from "../../../data/mockData";
 import StudySessionCard from "./SessionCard";
-import { JoingRequest } from "./requests/JoingRequest";
 
+
+/**
+ * Components that display the studying jios dashboard
+ */
 function  StudyingJios() {
     const { currentUser } = useAuth()
 
@@ -68,12 +69,7 @@ function  StudyingJios() {
     //     acceptSessionRequest(session, request);
     //   };
 
-      const Img = styled('img')({
-        margin: 'auto',
-        display: 'block',
-        maxWidth: '100%',
-        maxHeight: '100%',
-      });
+
 
     return (
         <Box display="flex">
@@ -118,5 +114,12 @@ function  StudyingJios() {
         </Box>
     )
 }
+
+const Img = styled('img')({
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+});
 
 export default StudyingJios;

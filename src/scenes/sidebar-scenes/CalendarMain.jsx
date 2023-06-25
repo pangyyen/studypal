@@ -1,11 +1,14 @@
+// react library and Material-UI imports
 import { useState } from "react";
+import { Box, List, ListItem, ListItemText, Typography, useTheme } from "@mui/material";
+
+// local component and context imports
 import Header from "../../components/Header";
-import { tokens } from "../../theme";
 import Sidebar from "../../components/SideBar";
+import { tokens } from "../../theme";
 import { useAuth } from "../authentication/auth-context";
 
-
-// fullcalendar imports
+// Full-Calendar library imports
 import { formatDate } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -13,22 +16,23 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 
-// Material-UI imports
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  useTheme,
-} from "@mui/material";
 
+
+/**
+ * Calendar component that displays a full interactive calendar.
+ */
 const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [currentEvents, setCurrentEvents] = useState([]);
   const { currentUser } = useAuth();
+  
+  const [currentEvents, setCurrentEvents] = useState([]);
 
+  /**
+   * Event handler for when a date is clicked on the calendar.
+   * Prompts the user to enter a new title for the event and adds it to the calendar.
+   * @param {object} selected - Selected date information.
+   */
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
     const calendarApi = selected.view.calendar;
@@ -45,6 +49,11 @@ const Calendar = () => {
     }
   };
 
+  /**
+   * Event handler for when an event is clicked on the calendar.
+   * Confirms with the user before deleting the event.
+   * @param {object} selected - Selected event information.
+   */
   const handleEventClick = (selected) => {
     if (
       window.confirm(

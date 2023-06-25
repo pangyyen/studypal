@@ -12,16 +12,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import HandleRequestCard from '../RequestCard';
-import { useAuth } from '../../../authentication/auth-context';
+import RequestComponent from './JoiningRequestComponent';
+import { useAuth } from '../../authentication/auth-context';
 
 import dayjs from 'dayjs';
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimeField } from '@mui/x-date-pickers/TimeField';
 
-import { createStudyingJio, displayRequest } from '../../../../firestoreOps'
-import { db } from "../../../../config/firebase-config";
+import { createStudyingJio, displayRequest } from '../../../firestoreOps'
+import { db } from "../../../config/firebase-config";
 import { doc, setDoc, getDoc, addDoc, collection, serverTimestamp, query, where, getDocs } from "firebase/firestore"
 
 
@@ -71,7 +71,7 @@ import { doc, setDoc, getDoc, addDoc, collection, serverTimestamp, query, where,
           <DialogContent>
             <DialogContentText sx={{m:"10px"}}>
                 {requests.map(request =>
-                            <HandleRequestCard request={request} currentUser={currentUser}/>
+                            <RequestComponent request={request} currentUser={currentUser}/>
                         )}
             </DialogContentText>
 
