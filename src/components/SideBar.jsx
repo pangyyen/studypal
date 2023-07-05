@@ -183,7 +183,7 @@ function Sidebar() {
 
             <Item
               title="CS1010E"
-              to="/"
+              to="/module"
               icon={<FiberManualRecordIcon />}
               selected={selected}
               setSelected={setSelected}

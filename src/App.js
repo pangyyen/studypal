@@ -14,6 +14,7 @@ import Social from "./scenes/sidebar-scenes/Social";
 import Calendar from "./scenes/sidebar-scenes/CalendarMain";
 import StudyingJios from "./scenes/sidebar-scenes/studying-jios/StudyingJios";
 import Account from "./scenes/sidebar-scenes/account";
+import Module from "./scenes/sidebar-scenes/Module";
 
 // Material UI imports
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -51,6 +52,7 @@ function App() {
                   <Route exact path="/form" element={<ProtectedRoute element={<Account />} />} /> 
                   <Route exact path="/calendar" element={<ProtectedRoute element={<Calendar />} />} />
                   <Route exact path="/message" element={<ProtectedRoute element={<Message />} />} />
+                  <Route exact path="/module" element={<ProtectedRoute element={<Module />} />} />
                 </Routes>
               </main>
             </div>
