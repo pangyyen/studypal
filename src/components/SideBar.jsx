@@ -43,7 +43,7 @@ function Sidebar() {
 
     // user authentication
     const { currentUser } = useAuth();
-
+    const modules = currentUser.modules;
     return (
         <Box
         // CSS style to override sidebar style
@@ -180,14 +180,16 @@ function Sidebar() {
             >
               Modules
             </Typography>
-
-            <Item
-              title="CS1010E"
-              to="/module"
+            { modules.map((module) => (
+              <Item
+              title={module}
+              to={`/module/${module}`}
               icon={<FiberManualRecordIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+              />
+              ))
+            }
           </Box>
 
           </Menu>

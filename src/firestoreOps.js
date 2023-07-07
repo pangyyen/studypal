@@ -1,6 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth, db } from './config/firebase-config'
 import { doc, setDoc, getDoc, addDoc, collection, deleteDoc, serverTimestamp, query, where, getDocs, updateDoc } from "firebase/firestore"
+import { toast } from 'react-toastify'
+
+
+const DatabaseContext = React.createContext();
+
+export function useDatabase() {
+    return useContext(DatabaseContext);
+}
 
 // Function to update user information in Firestore
 export async function updateUserInfo(values, uid) {
@@ -142,6 +150,34 @@ export async function updateUserInfo(values, uid) {
         window.location.reload();
       }
   }
+
+  //Post new discussion to firestore
+  export async function createDiscussion(title, description, moduleCode, username) {
+    await addDoc(collection(db, "discussions"), {
+      title: title,
+      description: description,
+      moduleCode: moduleCode,
+      username: username,
+      createdAt: serverTimestamp(),
+    })
+    .then(toast.success("Discussion created!"))
+    .catch(error => console.log("Error adding document: ", error.message));
+  }
+
+  //retrive all discussions from firestore
+  export async function getDiscussions(moduleCode) {
+    const querySnapshot = await getDocs(collection(db, "discussions"), where("moduleCode", "==", moduleCode));
+    //create a new array of discussions with id
+    const discussions = [];
+    querySnapshot.forEach(doc => {
+      discussions.push({
+        id: doc.id,
+        ...doc.data()
+      })
+    })
+    return discussions;
+  }
+  //Upload file to firebase storage
 
 
 

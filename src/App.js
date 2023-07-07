@@ -32,7 +32,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 function App() {
   // MUI color theme
   const [theme, colorMode] = useMode();
-
+  
+  const moduleRoutes = ["CS2040S", "HSI1000", "c"]
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -52,7 +53,10 @@ function App() {
                   <Route exact path="/form" element={<ProtectedRoute element={<Account />} />} /> 
                   <Route exact path="/calendar" element={<ProtectedRoute element={<Calendar />} />} />
                   <Route exact path="/message" element={<ProtectedRoute element={<Message />} />} />
-                  <Route exact path="/module" element={<ProtectedRoute element={<Module />} />} />
+                  {moduleRoutes.map((module) => (
+                    <Route key={module.path} path={`/module/${module}`} element={<ProtectedRoute element={<Module code={module} />} />} />
+                    ))
+                  }
                 </Routes>
               </main>
             </div>
