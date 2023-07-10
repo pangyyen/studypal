@@ -17,7 +17,7 @@ import Account from "./scenes/sidebar-scenes/account";
 import Module from "./scenes/sidebar-scenes/Module";
 
 // Material UI imports
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider, StyledEngineProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import AuthContextProvider from "./scenes/authentication/auth-context";
 import Login from "./scenes/authentication/login";
@@ -40,7 +40,9 @@ function App() {
         <CssBaseline />
           <AuthContextProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <div className="app">
+            <StyledEngineProvider>
+              {/* <div className="app"> */}
+              <div className={`app ${theme.palette.mode === "dark" ? "dark" : ""}`}>
               <main className='content'>
                 <Topbar />
                 <Routes>
@@ -60,6 +62,7 @@ function App() {
                 </Routes>
               </main>
             </div>
+            </StyledEngineProvider>
             </LocalizationProvider>
         </AuthContextProvider>
       </ThemeProvider>

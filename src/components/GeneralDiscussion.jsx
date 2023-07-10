@@ -41,7 +41,7 @@ const GeneralDiscussion = (value) => {
     }
 
     return (
-        <div>
+        <div className="w-full">
             <h1>General Discussion</h1>
             <button
                 onClick={() => handleStartDiscussion()}
@@ -120,24 +120,21 @@ const GeneralDiscussion = (value) => {
                     </div>
                 </div>
             )}
-            {/* { allDiscussions.map((discussion) => (
-                <div className="border-2 border-black">
-                    <h1>{discussion.title}</h1>
-                    <h2>{discussion.description}</h2>
-                    <h3>{discussion.username}</h3>
-                    <h4>{discussion.moduleCode}</h4>
-                    <h5>{discussion.createdAt}</h5>
-                </div>
-            ))
-            } */}
-
             {
                 discussions.map((discussion) => (
-                    <div className="border-2 border-black">
-                        <h1>{discussion.title}</h1>
-                        <h2>{discussion.description}</h2>
-                        <h3>{discussion.username}</h3>
-                        <h4>{discussion.moduleCode}</h4>
+                    <div className="border-2 border-black p-2 my-2">
+                        <div className="text-2xl">{discussion.title}</div>
+                        <div>{discussion.description}</div>
+                        <div className="flex">
+                        {/* <h3>{discussion.username}</h3> */}
+                            <div>Posted by: {discussion.username}</div>
+                            {/* <div>{discussion.moduleCode}</div> */}
+                            <div class="mx-auto">
+                                {/* Timestamp: {discussion.createdAt.seconds} */}
+                                Timestamp: {discussion.createdAt.toDate().toString()}
+
+                            </div>
+                        </div>
                     </div>
                 ))
 
