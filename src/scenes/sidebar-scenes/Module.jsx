@@ -1,6 +1,6 @@
 import { Box, Button, Typography, ButtonGroup } from "@mui/material";
 
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import Sidebar from "../../components/SideBar";
 import SharedFiles from "../../components/SharedFiles";
 import GeneralDiscussion from "../../components/GeneralDiscussion";
@@ -9,6 +9,14 @@ const Module = (value) => {
     const moduleCode = value.code;
     const moduleFullName = "How Science Work, Why Science Work";
     const [page, setPage] = useState("study-jios");
+
+    // when the moduleCode changes, we want to update the page to study-jios
+    useEffect(() => {
+        setPage("study-jios");
+    }, [moduleCode]);
+    
+
+    
     const handleStudyJios = () => {
         setPage("study-jios");
     };

@@ -153,27 +153,39 @@ export async function updateUserInfo(values, uid) {
 
   //Post new discussion to firestore
   export async function createDiscussion(title, description, moduleCode, username) {
-    await addDoc(collection(db, "discussions"), {
+    var date = new Date();
+    function toMonthEnglishName(month) {
+      var monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      month = monthNames[month-1];
+      return month;
+    }
+    function getTimeWithAmPm(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + '' + ampm;
+      return strTime;
+    }
+    var date = getTimeWithAmPm(date) + ' ' + date.getDate() + '-' + toMonthEnglishName(date.getMonth()+1) + '-' + date.getFullYear() 
+    await addDoc(collection(db, "forum-" + moduleCode), {
       title: title,
       description: description,
-      moduleCode: moduleCode,
       username: username,
-      createdAt: serverTimestamp(),
+      createdAt: date,
     })
-    .then(toast.success("Discussion created!"))
-    .catch(error => console.log("Error adding document: ", error.message));
+    .then(alert("Discussion created!"))
+    .catch(error => alert("Error adding document: ", error.message));
   }
 
-  //retrive all discussions from firestore
+  //retrive all discussions from firestore by module code
   export async function getDiscussions(moduleCode) {
-    const querySnapshot = await getDocs(collection(db, "discussions"), where("moduleCode", "==", moduleCode));
+    const querySnapshot = await getDocs(collection(db, "forum-" + moduleCode), where("moduleCode", "==", moduleCode));
     //create a new array of discussions with id
-    const discussions = [];
-    querySnapshot.forEach(doc => {
-      discussions.push({
-        id: doc.id,
-        ...doc.data()
-      })
+    const discussions = querySnapshot.docs.map(doc => {
+      return {id: doc.id, ...doc.data()}
     })
     return discussions;
   }

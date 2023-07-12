@@ -4,7 +4,7 @@ import { Modal } from "@mui/material";
 import { createDiscussion, getDiscussions } from "../firestoreOps";
 // User authentication import
 import { useAuth } from "../scenes/authentication/auth-context";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 const GeneralDiscussion = (value) => {
     const [isStartingDiscussion, setIsStartingDiscussion] = useState(false);
     const [title, setTitle] = useState("");
@@ -14,11 +14,12 @@ const GeneralDiscussion = (value) => {
     const username = useAuth().currentUser.displayName;
     useEffect(() => {
         //wait for the data to be retrieved from firestore
+        console.log("moduleCode", moduleCode);
         getDiscussions(moduleCode).then((discussions) => {
             setDiscussions(discussions);
-        }
-        );
-    }, []);
+            console.log(discussions);
+        });
+    }, [value.moduleCode]);
     function handleStartDiscussion() {
         console.log("Start a new discussion");
         setIsStartingDiscussion(true);
@@ -31,8 +32,7 @@ const GeneralDiscussion = (value) => {
         //refresh the page
         getDiscussions(moduleCode).then((discussions) => {
             setDiscussions(discussions);
-        }
-        );
+        });
     }
 
     function handleCancelDiscussion() {
@@ -58,7 +58,7 @@ const GeneralDiscussion = (value) => {
                                 {/* <!-- Modal header --> */}
                                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Start A new Discussion
+                                        Start a new Discussion
                                     </h3>
                                     <button
                                         onClick={() =>
@@ -87,18 +87,22 @@ const GeneralDiscussion = (value) => {
                                 </div>
                                 {/* <!-- Modal body --> */}
                                 <div class="p-6 space-y-2 flex flex-col">
-                                    <label className="text-lg"> 
-                                        Title 
-                                    </label>
-                                    <input 
-                                        onChange={(e) => setTitle(e.target.value)}
-                                        className="border-2 rounded bg-black text-white" />
+                                    <label className="text-lg">Title</label>
+                                    <input
+                                        onChange={(e) =>
+                                            setTitle(e.target.value)
+                                        }
+                                        className="border-2 rounded bg-black text-white"
+                                    />
                                     <label className="text-lg pt-2">
                                         Description
                                     </label>
                                     <textarea
-                                        onChange={(e) => setDescription(e.target.value)}                                
-                                        className="border-2 rounded bg-black text-white h-32" />
+                                        onChange={(e) =>
+                                            setDescription(e.target.value)
+                                        }
+                                        className="border-2 rounded bg-black text-white h-32"
+                                    />
                                 </div>
                                 {/* <!-- Modal footer --> */}
                                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
@@ -120,25 +124,22 @@ const GeneralDiscussion = (value) => {
                     </div>
                 </div>
             )}
-            {
-                discussions.map((discussion) => (
-                    <div className="border-2 border-black p-2 my-2">
-                        <div className="text-2xl">{discussion.title}</div>
-                        <div>{discussion.description}</div>
-                        <div className="flex">
-                        {/* <h3>{discussion.username}</h3> */}
-                            <div>Posted by: {discussion.username}</div>
-                            {/* <div>{discussion.moduleCode}</div> */}
-                            <div class="mx-auto">
-                                {/* Timestamp: {discussion.createdAt.seconds} */}
-                                Timestamp: {discussion.createdAt.toDate().toString()}
-
-                            </div>
+            {discussions.map((discussion) => (
+                <div className="border-2 border-black p-2 my-2">
+                    <div className="text-3xl">{discussion.title}</div>
+                    <div className="text-xl py-3">{discussion.description}</div>
+                    <div className="grid grid-cols-2  text-xs">
+                        <div class="flex flex-col text-left">
+                            <div>Posted by:</div>
+                            <div>{discussion.username}</div>
+                        </div>
+                        <div class="flex flex-col text-right">
+                            <div>Posted on:</div>
+                            <div>{discussion.createdAt}</div>
                         </div>
                     </div>
-                ))
-
-            }
+                </div>
+            ))}
         </div>
     );
 };

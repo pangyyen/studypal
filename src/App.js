@@ -56,7 +56,7 @@ function App() {
                   <Route exact path="/calendar" element={<ProtectedRoute element={<Calendar />} />} />
                   <Route exact path="/message" element={<ProtectedRoute element={<Message />} />} />
                   {moduleRoutes.map((module) => (
-                    <Route key={module.path} path={`/module/${module}`} element={<ProtectedRoute element={<Module code={module} />} />} />
+                    <Route exact key={module.path} path={`/module/${module}`} element={<ProtectedRoute element={<Module code={module} />} />} />
                     ))
                   }
                 </Routes>
@@ -88,7 +88,9 @@ function ProtectedRoute({ element }) {
   }
 
   // If the user is not authenticated, redirect to the login page with the current path as the 'from' state.
-  return currentUser ? element : <Navigate to="/login" state={{ from: pathname }} />;
+  return currentUser ? element : 
+  <Navigate to="/login" state={{ from: pathname }} />
+  ;
 }
 
 
