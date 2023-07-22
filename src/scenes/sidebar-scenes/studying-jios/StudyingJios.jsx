@@ -16,7 +16,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { db } from "../../../config/firebase-config"; // Assuming you have initialized and exported the Firebase Firestore instance as 'db'
 import { InitiateSession } from './InitiateSessionWindow';
 import { mockFilteredSessions } from "../../../data/mockData";
-import StudySessionCard from "./SessionCard";
+import SessionCard from "./SessionCard";
 
 
 /**
@@ -106,7 +106,7 @@ function  StudyingJios() {
                     <Grid container spacing={2} columns={12}>
                         
                         {sessions.map(session =>
-                            <StudySessionCard session={session} joinUser={currentUser}/>
+                            <SessionCard session={session} joinUser={currentUser}/>
                         )}
                     </Grid>
                 </Box>

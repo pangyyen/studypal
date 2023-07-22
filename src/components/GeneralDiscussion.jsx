@@ -42,7 +42,7 @@ const GeneralDiscussion = (value) => {
 
     return (
         <div className="w-full">
-            <h1>General Discussion</h1>
+            <h1 data-testid="general-discussion-title">{moduleCode} General Discussion</h1>
             <button
                 onClick={() => handleStartDiscussion()}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

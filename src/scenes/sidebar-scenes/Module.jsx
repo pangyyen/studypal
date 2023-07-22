@@ -2,8 +2,10 @@ import { Box, Button, Typography, ButtonGroup } from "@mui/material";
 
 import { React, useEffect, useState } from "react";
 import Sidebar from "../../components/SideBar";
+import StudyJios from "../../components/StudyJios";
 import SharedFiles from "../../components/SharedFiles";
 import GeneralDiscussion from "../../components/GeneralDiscussion";
+import TelegramChats from "../../components/TelegramChats";
 const Module = (value) => {
     console.log(value);
     const moduleCode = value.code;
@@ -121,23 +123,18 @@ const Module = (value) => {
                 </div>
                 <div className="flex">
                     {page === "study-jios" && (
-                        <div>
-                            <div className="flex justify-between">
-                                <Typography variant="h2">Study Jios</Typography>
-                            </div>
-                        </div>
+                        // <div>
+                        //     <div className="flex justify-between">
+                        //         <Typography variant="h2">Study Jios</Typography>
+                        //     </div>
+                        // </div>
+                        <StudyJios moduleCode={moduleCode} />
                     )}
                     {page === "shared-files" && 
                         <SharedFiles moduleCode={moduleCode} />
                     }
                     {page === "telegram-chats" && (
-                        <div>
-                            <div className="flex justify-between">
-                                <Typography variant="h2">
-                                    Telegram Chats
-                                </Typography>
-                            </div>
-                        </div>
+                        <TelegramChats moduleCode={moduleCode} />
                     )}
                     {page === "general-discussion" && (
                         <GeneralDiscussion moduleCode={moduleCode} />

@@ -134,6 +134,7 @@ export default function Login() {
             }}
           >
             <TextField
+              data-testid="login-form-email"
               fullWidth
               variant="filled"
               type="text"
