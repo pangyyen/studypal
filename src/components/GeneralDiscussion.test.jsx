@@ -1,5 +1,7 @@
 import React, { createContext, useContext} from 'react'
 import { render, screen } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
+import userEvent from '@testing-library/user-event';
 import "@testing-library/jest-dom";
 import GeneralDiscussion from "./GeneralDiscussion";
 //import essential firebase user authentication modules
@@ -49,4 +51,43 @@ test("GeneralDiscussion render with different moduleCode(should expect not the s
 
     // ASSERT
     expect(screen.getByTestId("general-discussion-title")).not.toHaveTextContent("HSI1000 General Discussion");
+});
+
+
+test("When the Start New Discussion Button Click, a modal should be shown up", async () => {
+    // ARRANGE
+    render(<GeneralDiscussion moduleCode={"CS2040S"}/>);
+
+    // ACT
+
+    act(() => {
+        /* fire events that update state */
+        userEvent.click(screen.getByTestId("start-new-discussion-button"));
+        
+    });
+
+    // ASSERT
+    expect(screen.getByTestId("start-new-discussion-modal")).toBeInTheDocument();
+});
+
+
+test("While the modal is shown and cancel button is clicked, the modal should be closed properly", async () => {
+    // ARRANGE
+    render(<GeneralDiscussion moduleCode={"CS2040S"}/>);
+
+    // ACT
+    act(() => {
+        /* fire events that update state */
+        userEvent.click(screen.getByTestId("start-new-discussion-button"));
+        
+    });
+    // ASSERT
+    expect(screen.getByTestId("start-new-discussion-modal")).toBeInTheDocument();
+
+    act(() => {
+        /* fire events that update state */
+        userEvent.click(screen.getByTestId("cancel-button"));
+    });
+
+    expect(screen.queryByTestId("start-new-discussion-modal")).not.toBeInTheDocument();
 });

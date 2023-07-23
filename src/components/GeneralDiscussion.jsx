@@ -74,13 +74,16 @@ const GeneralDiscussion = (value) => {
                 {moduleCode} General Discussion
             </h1>
             <button
+                data-testid="start-new-discussion-button"
                 onClick={() => handleStartDiscussion()}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
                 Start a new discussion
             </button>
             {isStartingDiscussion && (
-                <div class="fixed top-0 left-0 z-[1010] w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-600 bg-opacity-50">
+                <div 
+                data-testid="start-new-discussion-modal"
+                class="fixed top-0 left-0 z-[1010] w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-600 bg-opacity-50">
                     <div className="flex justify-center h-full items-center">
                         <div class="w-full max-w-2xl max-h-full">
                             {/* <!-- Modal content --> */}
@@ -143,6 +146,7 @@ const GeneralDiscussion = (value) => {
                                         Post
                                     </button>
                                     <button
+                                        data-testid="cancel-button"
                                         onClick={handleCancelDiscussion}
                                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                                     >
