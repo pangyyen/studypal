@@ -24,9 +24,11 @@ const SharedFiles = (value) => {
         if (file == null) return;
         const fileref = ref(storage, `sharedFiles/${moduleCode}/${file.name}`);
         uploadBytes(fileref, file).then((snapshot) => {
-            console.log("Uploaded a blob or file!");
+            console.log("Uploaded a blob or file! The screen will refresh soon.");
         });
         setFile(null);
+        //refresh the page
+        window.location.reload();
     }
     useEffect(() => {
         listAll(fileListRef).then((response) => {
