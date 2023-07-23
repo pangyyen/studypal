@@ -14,9 +14,10 @@ import Social from "./scenes/sidebar-scenes/Social";
 import Calendar from "./scenes/sidebar-scenes/CalendarMain";
 import StudyingJios from "./scenes/sidebar-scenes/studying-jios/StudyingJios";
 import Account from "./scenes/sidebar-scenes/account";
+import Module from "./scenes/sidebar-scenes/Module";
 
 // Material UI imports
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider, StyledEngineProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import AuthContextProvider from "./scenes/authentication/auth-context";
 import Login from "./scenes/authentication/login";
@@ -31,14 +32,17 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 function App() {
   // MUI color theme
   const [theme, colorMode] = useMode();
-
+  
+  const moduleRoutes = ["CS2040S", "HSI1000", "c"]
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
           <AuthContextProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <div className="app">
+            <StyledEngineProvider>
+              {/* <div className="app"> */}
+              <div className={`app ${theme.palette.mode === "dark" ? "dark" : ""}`}>
               <main className='content'>
                 <Topbar />
                 <Routes>
@@ -51,9 +55,14 @@ function App() {
                   <Route exact path="/form" element={<ProtectedRoute element={<Account />} />} /> 
                   <Route exact path="/calendar" element={<ProtectedRoute element={<Calendar />} />} />
                   <Route exact path="/message" element={<ProtectedRoute element={<Message />} />} />
+                  {moduleRoutes.map((module) => (
+                    <Route exact key={module.path} path={`/module/${module}`} element={<ProtectedRoute element={<Module code={module} />} />} />
+                    ))
+                  }
                 </Routes>
               </main>
             </div>
+            </StyledEngineProvider>
             </LocalizationProvider>
         </AuthContextProvider>
       </ThemeProvider>
@@ -79,7 +88,9 @@ function ProtectedRoute({ element }) {
   }
 
   // If the user is not authenticated, redirect to the login page with the current path as the 'from' state.
-  return currentUser ? element : <Navigate to="/login" state={{ from: pathname }} />;
+  return currentUser ? element : 
+  <Navigate to="/login" state={{ from: pathname }} />
+  ;
 }
 
 

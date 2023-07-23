@@ -1,6 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth, db } from './config/firebase-config'
 import { doc, setDoc, getDoc, addDoc, collection, deleteDoc, serverTimestamp, query, where, getDocs, updateDoc } from "firebase/firestore"
+import { toast } from 'react-toastify'
+
+
+const DatabaseContext = React.createContext();
+
+export function useDatabase() {
+    return useContext(DatabaseContext);
+}
 
 // Function to update user information in Firestore
 export async function updateUserInfo(values, uid) {
@@ -141,6 +149,104 @@ export async function updateUserInfo(values, uid) {
         alert("Leave Successfully! The page will refresh to show the update");
         window.location.reload();
       }
+  }
+
+  //Post new discussion to firestore
+  export async function createDiscussion(title, description, moduleCode, username) {
+    function toMonthEnglishName(month) {
+      var monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      month = monthNames[month-1];
+      return month;
+    }
+    function getTimeWithAmPm(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + '' + ampm;
+      return strTime;
+    }
+    var date = new Date();
+    date = getTimeWithAmPm(date) + ' ' + date.getDate() + '-' + toMonthEnglishName(date.getMonth()+1) + '-' + date.getFullYear() 
+    await addDoc(collection(db, "forum-" + moduleCode), {
+      title: title,
+      description: description,
+      username: username,
+      comments: [],
+      createdAt: date,
+    })
+    .then(alert("Discussion created!"))
+    .catch(error => alert("Error adding document: ", error.message));
+  }
+
+  //retrive all discussions from firestore by module code
+  export async function getDiscussions(moduleCode) {
+    const querySnapshot = await getDocs(collection(db, "forum-" + moduleCode), where("moduleCode", "==", moduleCode));
+    //create a new array of discussions with id
+    const discussions = querySnapshot.docs.map(doc => {
+      return {id: doc.id, ...doc.data()}
+    })
+    return discussions;
+  }
+
+  export async function createComment(text, moduleCode, username, discussionId) {
+    function toMonthEnglishName(month) {
+      var monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      month = monthNames[month-1];
+      return month;
+    }
+    function getTimeWithAmPm(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + '' + ampm;
+      return strTime;
+    }
+    var date = new Date();
+    date = getTimeWithAmPm(date) + ' ' + date.getDate() + '-' + toMonthEnglishName(date.getMonth()+1) + '-' + date.getFullYear() 
+    var commentObj = {
+      username: username,
+      text: text,
+      createdAt: date,
+    }
+    const docRef = doc(db, "forum-" + moduleCode, discussionId);
+    const existingComments = (await getDoc(docRef)).data().comments;
+    existingComments.push(commentObj);
+    await updateDoc(doc(db, "forum-" + moduleCode, discussionId), {
+      comments: existingComments
+    })
+
+    .then(alert("Comment created!"))
+    .catch(error => alert("Error adding document: ", error.message));
+    
+
+  }
+    
+
+  //telegram link functions
+  //createTelegramLink, getTelegramLinks
+  export async function createTelegramLink(link, description, moduleCode, username) {
+    await addDoc(collection(db, "telegram-link-" + moduleCode ), {
+      link: link,
+      description: description,
+      uploadBy: username,
+    })
+    .then(alert("Link created!"))
+    .catch(error => alert("Error adding document: ", error.message));
+  }
+
+  export async function getTelegramLinks(moduleCode) {
+    const querySnapshot = await getDocs(collection(db, "telegram-link-" + moduleCode), where("moduleCode", "==", moduleCode));
+    //create a new array of discussions with id
+    const links = querySnapshot.docs.map(doc => {
+      return {id: doc.id, ...doc.data()}
+    })
+    return links;
   }
 
 
